@@ -1,6 +1,8 @@
 .DS_Store
+.idea
 composer.phar
 composer.lock
 vendor/
+bin/
 bin/phpunit
 bin/phantomjs
