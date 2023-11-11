@@ -50,9 +50,9 @@ parameters:
 ##################
 
     phantomjs.template.template_renderer.class: JonnyW\PhantomJs\Template\TemplateRenderer
-    phantomjs.twig.environment.class: Twig_Environment
-    phantomjs.twig.lexer.class: Twig_Lexer
-    phantomjs.twig.array_loader.class: Twig_Loader_Array
+    phantomjs.twig.environment.class: Twig\Environment
+    phantomjs.twig.lexer.class: Twig\Lexer
+    phantomjs.twig.loader.arrayloader.class: Twig\Loader\ArrayLoader
 
 ##################
 ### RESOURCES ####

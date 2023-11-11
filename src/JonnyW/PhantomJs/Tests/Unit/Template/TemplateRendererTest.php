@@ -6,38 +6,37 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace JonnyW\PhantomJs\Tests\Unit\Template;
 
-use Twig_Environment;
-use Twig_Loader_String;
 use JonnyW\PhantomJs\Http\Request;
 use JonnyW\PhantomJs\Template\TemplateRenderer;
 
 /**
- * PHP PhantomJs
+ * PHP PhantomJs.
  *
  * @author Jon Wenmoth <contact@jonnyw.me>
+ *
+ * @internal
+ *
+ * @coversNothing
  */
 class TemplateRendererTest extends \PHPUnit_Framework_TestCase
 {
-
-/** +++++++++++++++++++++++++++++++++++ **/
-/** ++++++++++++++ TESTS ++++++++++++++ **/
-/** +++++++++++++++++++++++++++++++++++ **/
+    /** +++++++++++++++++++++++++++++++++++ */
+    /** ++++++++++++++ TESTS ++++++++++++++ */
+    /** +++++++++++++++++++++++++++++++++++ */
 
     /**
      * Test render injects single parameter
      * into template.
-     *
-     * @access public
-     * @return void
      */
     public function testRenderInjectsSingleParameterIntoTemplate()
     {
         $template = 'var param = "{{ test }}"';
 
         $renderer = $this->getTemplateRenderer();
-        $result   = $renderer->render($template, array('test' => 'data'));
+        $result = $renderer->render($template, ['test' => 'data']);
 
         $this->assertSame('var param = "data"', $result);
     }
@@ -45,16 +44,13 @@ class TemplateRendererTest extends \PHPUnit_Framework_TestCase
     /**
      * Test render injects multiple parameters
      * into template.
-     *
-     * @access public
-     * @return void
      */
     public function testRenderInjectsMultipleParametersIntoTemplates()
     {
         $template = 'var param = "{{ test }}", var param2 = "{{ test2 }}"';
 
         $renderer = $this->getTemplateRenderer();
-        $result   = $renderer->render($template, array('test' => 'data', 'test2' => 'more data'));
+        $result = $renderer->render($template, ['test' => 'data', 'test2' => 'more data']);
 
         $this->assertSame('var param = "data", var param2 = "more data"', $result);
     }
@@ -62,9 +58,6 @@ class TemplateRendererTest extends \PHPUnit_Framework_TestCase
     /**
      * Test render injects parameter into
      * template using object method.
-     *
-     * @access public
-     * @return void
      */
     public function testRenderInjectsParameterIntoTemplateUsingObjectMethod()
     {
@@ -74,7 +67,7 @@ class TemplateRendererTest extends \PHPUnit_Framework_TestCase
         $request->setTimeout(5000);
 
         $renderer = $this->getTemplateRenderer();
-        $result   = $renderer->render($template, array('request' => $request));
+        $result = $renderer->render($template, ['request' => $request]);
 
         $this->assertSame('var param = 5000', $result);
     }
@@ -83,9 +76,6 @@ class TemplateRendererTest extends \PHPUnit_Framework_TestCase
      * Test render injects parameter into
      * template using object method
      * with parameter.
-     *
-     * @access public
-     * @return void
      */
     public function testRenderInjectsParameterIntoTemplateUsingObjectMethodWithParameter()
     {
@@ -95,14 +85,14 @@ class TemplateRendererTest extends \PHPUnit_Framework_TestCase
         $request->addHeader('json', 'test');
 
         $renderer = $this->getTemplateRenderer();
-        $result = $renderer->render($template, array('request' => $request));
+        $result = $renderer->render($template, ['request' => $request]);
 
         $this->assertSame(htmlspecialchars('var param = {"json":"test"}'), $result);
     }
 
-/** +++++++++++++++++++++++++++++++++++ **/
-/** ++++++++++ TEST ENTITIES ++++++++++ **/
-/** +++++++++++++++++++++++++++++++++++ **/
+    /** +++++++++++++++++++++++++++++++++++ */
+    /** ++++++++++ TEST ENTITIES ++++++++++ */
+    /** +++++++++++++++++++++++++++++++++++ */
 
     /**
      * Get template renderer instance.
@@ -111,38 +101,30 @@ class TemplateRendererTest extends \PHPUnit_Framework_TestCase
      */
     protected function getTemplateRenderer()
     {
-        $templateRenderer = new TemplateRenderer(
+        return new TemplateRenderer(
             $this->getTwig()
         );
-
-        return $templateRenderer;
     }
 
     /**
-     * Get request
+     * Get request.
      *
-     * @access protected
      * @return \JonnyW\PhantomJs\Http\Request
      */
     protected function getRequest()
     {
-        $request = new Request();
-
-        return $request;
+        return new Request();
     }
 
     /**
-     * Get twig
+     * Get twig.
      *
-     * @access protected
-     * @return \Twig_Environment
+     * @return \Twig\Environment
      */
     protected function getTwig()
     {
-        $twig = new Twig_Environment(
-            new Twig_Loader_String()
+        return new \Twig\Environment(
+            new \Twig\Loader\StringLoader()
         );
-
-        return $twig;
     }
 }

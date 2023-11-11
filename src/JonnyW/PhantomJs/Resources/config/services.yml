@@ -128,11 +128,11 @@ services:
     phantomjs.twig.environment:
         class: "%phantomjs.twig.environment.class%"
         arguments:
-            - "@phantomjs.twig.array_loader"
+            - "@phantomjs.twig.loader.arrayloader"
         public: false
 
-    phantomjs.twig.array_loader:
-        class: "%phantomjs.twig.array_loader.class%"
+    phantomjs.twig.loader.arrayloader:
+        class: "%phantomjs.twig.loader.arrayloader.class%"
         arguments:
             - []
         public: false
@@ -146,7 +146,7 @@ services:
     phantomjs.procedure.twig.environment:
         class: "%phantomjs.twig.environment.class%"
         arguments:
-            - "@phantomjs.twig.array_loader"
+            - "@phantomjs.twig.loader.arrayloader"
         public: false
         calls:
             - [ "setLexer", [ "@phantomjs.procedure.twig.lexer" ] ]
